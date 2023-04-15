@@ -88,7 +88,7 @@ class _ContactInfoPageState extends State<ContactInfoPage> {
                           ),
                         ),
                         Positioned(
-                          bottom: 40,
+                          bottom: 60,
                           child: CircleAvatar(
                             radius: 40,
                             backgroundColor: Colors.grey.shade400,
