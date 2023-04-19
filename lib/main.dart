@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:resume_builder_jcf10/utils/route_utils.dart';
 import 'package:resume_builder_jcf10/views/screens/carrier_objective_page.dart';
 import 'package:resume_builder_jcf10/views/screens/contact_info_page.dart';
+import 'package:resume_builder_jcf10/views/screens/education_page.dart';
 import 'package:resume_builder_jcf10/views/screens/home_page.dart';
 import 'package:resume_builder_jcf10/views/screens/personal_details_page.dart';
 import 'package:resume_builder_jcf10/views/screens/resume_workspace.dart';
@@ -27,6 +28,7 @@ class MyApp extends StatelessWidget {
             const CarrierObjectivePage(),
         MyRoutes.buildOptions[2].route: (context) =>
             const PersonalDetailsPage(),
+        MyRoutes.buildOptions[3].route: (context) => const EducationPage(),
       },
     );
   }

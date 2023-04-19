@@ -33,5 +33,10 @@ class MyRoutes {
       name: "Personal Details",
       route: "personal_details",
     ),
+    BuildOption(
+      icon: iconPath + "graduation-cap.png",
+      name: "Education Page",
+      route: 'education_page',
+    ),
   ];
 }

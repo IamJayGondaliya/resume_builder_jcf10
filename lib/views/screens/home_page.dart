@@ -15,64 +15,94 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     Size s = MediaQuery.of(context).size;
 
-    return Scaffold(
-      appBar: AppBar(
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(
-            bottom: Radius.circular(30),
+    return WillPopScope(
+      onWillPop: () async {
+        bool willPop = await showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: const Text("Are you sure to exit ?"),
+            actions: [
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).pop(true);
+                },
+                child: const Text("Yes"),
+              ),
+              OutlinedButton(
+                onPressed: () {
+                  Navigator.of(context).pop(false);
+                },
+                child: const Text("No"),
+              ),
+            ],
+          ),
+        );
+
+        await Future.delayed(
+          Duration(seconds: 1),
+        );
+
+        return willPop;
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(
+              bottom: Radius.circular(30),
+            ),
+          ),
+          title: Column(
+            children: [
+              Text(
+                "Resume Builder",
+                style: appBarTitleStyle,
+              ),
+              SizedBox(
+                height: s.height * 0.07,
+              ),
+              Text(
+                "RESUMES",
+                style: appBarTitleStyle,
+              ),
+            ],
+          ),
+          centerTitle: true,
+          toolbarHeight: 150,
+          backgroundColor: Colors.red,
+        ),
+        body: Center(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(
+                height: s.height * 0.08,
+              ),
+              Image.asset(
+                iconPath + "open-cardboard-box.png",
+                height: 80,
+                color: Colors.red.shade200,
+              ),
+              SizedBox(
+                height: s.height * 0.02,
+              ),
+              Text(
+                "No resumes yet !!\nClick + to create new resume.",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.red.shade900,
+                  fontSize: 16,
+                ),
+              )
+            ],
           ),
         ),
-        title: Column(
-          children: [
-            Text(
-              "Resume Builder",
-              style: appBarTitleStyle,
-            ),
-            SizedBox(
-              height: s.height * 0.07,
-            ),
-            Text(
-              "RESUMES",
-              style: appBarTitleStyle,
-            ),
-          ],
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.of(context).pushNamed(MyRoutes.workspace);
+          },
+          tooltip: "Create new resume",
+          child: const Icon(Icons.add),
         ),
-        centerTitle: true,
-        toolbarHeight: 150,
-        backgroundColor: Colors.red,
-      ),
-      body: Center(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SizedBox(
-              height: s.height * 0.08,
-            ),
-            Image.asset(
-              iconPath + "open-cardboard-box.png",
-              height: 80,
-              color: Colors.red.shade200,
-            ),
-            SizedBox(
-              height: s.height * 0.02,
-            ),
-            Text(
-              "No resumes yet !!\nClick + to create new resume.",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Colors.red.shade900,
-                fontSize: 16,
-              ),
-            )
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.of(context).pushNamed(MyRoutes.workspace);
-        },
-        tooltip: "Create new resume",
-        child: const Icon(Icons.add),
       ),
     );
   }

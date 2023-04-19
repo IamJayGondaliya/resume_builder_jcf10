@@ -10,6 +10,10 @@ class ContactInfoPage extends StatefulWidget {
 }
 
 class _ContactInfoPageState extends State<ContactInfoPage> {
+  FlutterLogoStyle myStyle = FlutterLogoStyle.markOnly;
+
+  int index = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,103 +26,78 @@ class _ContactInfoPageState extends State<ContactInfoPage> {
         backgroundColor: Colors.red,
         centerTitle: true,
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ElevatedButton(
-              onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (context) => AlertDialog(
-                    title: const Text("Demo Alert"),
-                    content: const Text("Body of dialog !!"),
-                    // icon: Icon(Icons.warning),
-                  ),
-                );
-              },
-              child: const Text("Simple Dialog"),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                showDialog(
-                  context: context,
-                  barrierDismissible: false,
-                  builder: (context) => AlertDialog(
-                    title: const Text("Demo Alert"),
-                    content: const Text("Body of dialog !!"),
-                    // icon: Icon(Icons.warning),
-                    actions: [
-                      ElevatedButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: const Text("OK"),
+      body: Column(
+        children: [
+          Expanded(
+            child: Row(
+              children: [
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        index = 0;
+                      });
+                    },
+                    child: Container(
+                      alignment: Alignment.center,
+                      child: Text(
+                        "Contact",
+                        style: appBarTitleStyle,
                       ),
-                      OutlinedButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: const Text("CANCEl"),
-                      ),
-                    ],
-                  ),
-                );
-              },
-              child: const Text("Conformational Dialog"),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                showDialog(
-                  context: context,
-                  barrierDismissible: false,
-                  builder: (context) => AlertDialog(
-                    titlePadding: EdgeInsets.zero,
-                    title: Stack(
-                      children: [
-                        Container(
-                          height: 100,
-                          width: double.infinity,
-                          color: Colors.red.shade400,
-                          child: Stack(
-                            alignment: Alignment.center,
-                            children: [
-                              const Text("Decorative dialog !!"),
-                            ],
+                      decoration: BoxDecoration(
+                        border: Border(
+                          bottom: BorderSide(
+                            width: index == 0 ? 3 : 0,
+                            color: Colors.amber,
                           ),
                         ),
-                        Positioned(
-                          bottom: 60,
-                          child: CircleAvatar(
-                            radius: 40,
-                            backgroundColor: Colors.grey.shade400,
-                          ),
-                        ),
-                      ],
+                        color: Colors.red,
+                      ),
                     ),
-                    content: const Text("Body of dialog !!"),
-                    // icon: Icon(Icons.warning),
-                    actions: [
-                      ElevatedButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: const Text("OK"),
-                      ),
-                      OutlinedButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: const Text("CANCEl"),
-                      ),
-                    ],
                   ),
-                );
-              },
-              child: const Text("Decorative Dialog"),
+                ),
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        index = 1;
+                      });
+                    },
+                    child: Container(
+                      alignment: Alignment.center,
+                      child: Text(
+                        "Photo",
+                        style: appBarTitleStyle,
+                      ),
+                      decoration: BoxDecoration(
+                        border: Border(
+                          bottom: BorderSide(
+                            width: index == 1 ? 3 : 0,
+                            color: Colors.amber,
+                          ),
+                        ),
+                        color: Colors.red,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+          Expanded(
+            flex: 11,
+            child: Padding(
+              padding: const EdgeInsets.all(18),
+              child: IndexedStack(
+                index: index,
+                children: [
+                  Text("Contact Page"),
+                  Text("Image Page"),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

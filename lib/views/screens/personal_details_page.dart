@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:resume_builder_jcf10/utils/theme_utils.dart';
 import 'package:resume_builder_jcf10/views/component/back_button.dart';
@@ -45,20 +44,20 @@ class _PersonalDetailsPageState extends State<PersonalDetailsPage> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("DOB"),
-              SizedBox(
+              const Text("DOB"),
+              const SizedBox(
                 height: 10,
               ),
-              TextField(
+              const TextField(
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
-              Text("Marital Status"),
-              SizedBox(
+              const Text("Marital Status"),
+              const SizedBox(
                 height: 10,
               ),
               RadioListTile(
