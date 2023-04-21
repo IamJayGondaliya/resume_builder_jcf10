@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:resume_builder_jcf10/modals/globals.dart';
 import 'package:resume_builder_jcf10/utils/route_utils.dart';
 import 'package:resume_builder_jcf10/utils/theme_utils.dart';
 
@@ -30,6 +31,15 @@ class _ResumeWorkspaceState extends State<ResumeWorkspace> {
           style: appBarTitleStyle,
         ),
         centerTitle: true,
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(
+              Icons.picture_as_pdf,
+              color: Colors.white,
+            ),
+          ),
+        ],
       ),
       body: Column(
         children: [
@@ -43,9 +53,9 @@ class _ResumeWorkspaceState extends State<ResumeWorkspace> {
                 ),
               ),
               alignment: Alignment.center,
-              child: const Text(
+              child: Text(
                 "Build Options",
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
                   fontSize: 22,
@@ -83,7 +93,7 @@ class _ResumeWorkspaceState extends State<ResumeWorkspace> {
                             const Spacer(),
                             IconButton(
                               onPressed: () {
-                                Navigator.of(context).pushNamed(e.route);
+                                Navigator.of(context).pushNamed(e.route).then((value) => setState(() {}));
                               },
                               icon: const Icon(Icons.arrow_forward_ios),
                             ),

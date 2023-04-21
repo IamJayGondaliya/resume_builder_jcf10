@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:resume_builder_jcf10/modals/globals.dart';
 import 'package:resume_builder_jcf10/utils/icon_utils.dart';
 import 'package:resume_builder_jcf10/utils/theme_utils.dart';
 import 'package:resume_builder_jcf10/views/component/back_button.dart';
+import 'package:resume_builder_jcf10/views/component/my_snackbar.dart';
 
 class ContactInfoPage extends StatefulWidget {
   const ContactInfoPage({Key? key}) : super(key: key);
@@ -15,7 +17,6 @@ class _ContactInfoPageState extends State<ContactInfoPage> {
   FlutterLogoStyle myStyle = FlutterLogoStyle.markOnly;
 
   int index = 0;
-
   bool hide = true;
 
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -108,6 +109,7 @@ class _ContactInfoPageState extends State<ContactInfoPage> {
                     color: Colors.white,
                     child: Form(
                       key: formKey,
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
                       child: SingleChildScrollView(
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
@@ -126,6 +128,17 @@ class _ContactInfoPageState extends State<ContactInfoPage> {
                                 Expanded(
                                   flex: 8,
                                   child: TextFormField(
+                                    initialValue: Global.name,
+                                    validator: (val) {
+                                      if (val!.isEmpty) {
+                                        return "Please enter name...";
+                                      } else {
+                                        return null;
+                                      }
+                                    },
+                                    onSaved: (val) {
+                                      Global.name = val;
+                                    },
                                     textInputAction: TextInputAction.next,
                                     decoration: InputDecoration(
                                       hintText: "Enter name",
@@ -148,6 +161,17 @@ class _ContactInfoPageState extends State<ContactInfoPage> {
                                   child: TextFormField(
                                     textInputAction: TextInputAction.next,
                                     keyboardType: TextInputType.emailAddress,
+                                    initialValue: Global.email,
+                                    validator: (val) {
+                                      if (val!.isEmpty) {
+                                        return "Please enter email...";
+                                      } else {
+                                        return null;
+                                      }
+                                    },
+                                    onSaved: (val) {
+                                      Global.email = val;
+                                    },
                                     decoration: InputDecoration(
                                       hintText: "Enter email",
                                       labelText: "Email",
@@ -173,6 +197,19 @@ class _ContactInfoPageState extends State<ContactInfoPage> {
                                     inputFormatters: [
                                       FilteringTextInputFormatter.digitsOnly,
                                     ],
+                                    initialValue: (Global.contact == null) ? null : Global.contact.toString(),
+                                    validator: (val) {
+                                      if (val!.isEmpty) {
+                                        return "Please enter contact...";
+                                      } else if (val!.length < 10) {
+                                        return "Contact number must have 10 digits...";
+                                      } else {
+                                        return null;
+                                      }
+                                    },
+                                    onSaved: (val) {
+                                      Global.contact = int.parse(val!);
+                                    },
                                     decoration: const InputDecoration(
                                       hintText: "Enter mobile number",
                                       labelText: "Mobile no.",
@@ -194,7 +231,40 @@ class _ContactInfoPageState extends State<ContactInfoPage> {
                                 Expanded(
                                   child: TextFormField(
                                     textInputAction: TextInputAction.next,
-                                    decoration: InputDecoration(),
+                                    initialValue: Global.a1,
+                                    validator: (val) {
+                                      if (val!.isEmpty) {
+                                        return "Please enter address...";
+                                      } else {
+                                        return null;
+                                      }
+                                    },
+                                    onSaved: (val) {
+                                      Global.a1 = val;
+                                    },
+                                    onFieldSubmitted: (val) {
+                                      if (formKey.currentState!.validate()) {
+                                        formKey.currentState!.save();
+
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                          mySnackBar(
+                                            text: "Successfully validated !!",
+                                            color: Colors.green,
+                                          ),
+                                        );
+                                      } else {
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                          mySnackBar(
+                                            text: "Failled to validate !!",
+                                            color: Colors.red,
+                                          ),
+                                        );
+                                      }
+                                    },
+                                    decoration: InputDecoration(
+                                      labelText: "Address",
+                                      hintText: "Enter address line 1",
+                                    ),
                                   ),
                                 ),
                               ],
@@ -230,11 +300,37 @@ class _ContactInfoPageState extends State<ContactInfoPage> {
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 ElevatedButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    setState(() {
+                                      if (formKey.currentState!.validate()) {
+                                        formKey.currentState!.save();
+
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                          mySnackBar(
+                                            text: "Successfully validated !!",
+                                            color: Colors.green,
+                                          ),
+                                        );
+                                      } else {
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                          mySnackBar(
+                                            text: "Failled to validate !!",
+                                            color: Colors.red,
+                                          ),
+                                        );
+                                      }
+                                    });
+                                  },
                                   child: const Text("Save"),
                                 ),
                                 ElevatedButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    setState(() {
+                                      formKey.currentState!.reset();
+
+                                      Global.name = Global.email = Global.contact = Global.a1 = Global.a2 = Global.a3 = null;
+                                    });
+                                  },
                                   child: const Text("Reset"),
                                 ),
                               ],

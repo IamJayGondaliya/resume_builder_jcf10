@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:resume_builder_jcf10/modals/globals.dart';
 import 'package:resume_builder_jcf10/utils/icon_utils.dart';
 import 'package:resume_builder_jcf10/utils/route_utils.dart';
 import 'package:resume_builder_jcf10/utils/theme_utils.dart';
