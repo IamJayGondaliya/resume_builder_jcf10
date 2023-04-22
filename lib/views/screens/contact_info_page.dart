@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:resume_builder_jcf10/modals/globals.dart';
@@ -5,6 +7,7 @@ import 'package:resume_builder_jcf10/utils/icon_utils.dart';
 import 'package:resume_builder_jcf10/utils/theme_utils.dart';
 import 'package:resume_builder_jcf10/views/component/back_button.dart';
 import 'package:resume_builder_jcf10/views/component/my_snackbar.dart';
+import 'package:image_picker/image_picker.dart';
 
 class ContactInfoPage extends StatefulWidget {
   const ContactInfoPage({Key? key}) : super(key: key);
@@ -20,6 +23,12 @@ class _ContactInfoPageState extends State<ContactInfoPage> {
   bool hide = true;
 
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+  TextEditingController nameController = TextEditingController(text: Global.name);
+
+  AutovalidateMode mode = AutovalidateMode.disabled;
+
+  ImagePicker picker = ImagePicker();
 
   @override
   Widget build(BuildContext context) {
@@ -109,7 +118,7 @@ class _ContactInfoPageState extends State<ContactInfoPage> {
                     color: Colors.white,
                     child: Form(
                       key: formKey,
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      autovalidateMode: mode,
                       child: SingleChildScrollView(
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
@@ -128,7 +137,8 @@ class _ContactInfoPageState extends State<ContactInfoPage> {
                                 Expanded(
                                   flex: 8,
                                   child: TextFormField(
-                                    initialValue: Global.name,
+                                    controller: nameController,
+                                    // initialValue: Global.name,
                                     validator: (val) {
                                       if (val!.isEmpty) {
                                         return "Please enter name...";
@@ -302,6 +312,8 @@ class _ContactInfoPageState extends State<ContactInfoPage> {
                                 ElevatedButton(
                                   onPressed: () {
                                     setState(() {
+                                      mode = AutovalidateMode.onUserInteraction;
+
                                       if (formKey.currentState!.validate()) {
                                         formKey.currentState!.save();
 
@@ -328,6 +340,8 @@ class _ContactInfoPageState extends State<ContactInfoPage> {
                                     setState(() {
                                       formKey.currentState!.reset();
 
+                                      nameController.clear();
+
                                       Global.name = Global.email = Global.contact = Global.a1 = Global.a2 = Global.a3 = null;
                                     });
                                   },
@@ -341,7 +355,68 @@ class _ContactInfoPageState extends State<ContactInfoPage> {
                     ),
                   ),
                   //Photo Page
-                  Text("Image Page"),
+                  Container(
+                    height: 250,
+                    color: Colors.white,
+                    alignment: Alignment.center,
+                    child: Stack(
+                      alignment: Alignment.bottomRight,
+                      children: [
+                        CircleAvatar(
+                          radius: 80,
+                          foregroundImage: (Global.image != null) ? FileImage(Global.image!) : null,
+                          child: const Text("ADD"),
+                        ),
+                        FloatingActionButton(
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (context) => AlertDialog(
+                                title: const Text("Select the method !!"),
+                                actions: [
+                                  TextButton.icon(
+                                    onPressed: () async {
+                                      Navigator.of(context).pop();
+
+                                      XFile? img = await picker.pickImage(source: ImageSource.camera);
+
+                                      if (img != null) {
+                                        setState(() {
+                                          Global.image = File(img.path);
+                                        });
+                                      }
+                                    },
+                                    label: const Text("Camera"),
+                                    icon: const Icon(Icons.camera_alt),
+                                  ),
+                                  TextButton.icon(
+                                    onPressed: () async {
+                                      XFile? img = await picker.pickImage(source: ImageSource.gallery);
+
+                                      if (img != null) {
+                                        setState(() {
+                                          Global.image = File(img.path);
+                                        });
+                                      }
+
+                                      Navigator.of(context).pop();
+                                    },
+                                    label: const Text("Gallery"),
+                                    icon: const Icon(Icons.image),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                          mini: true,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(50),
+                          ),
+                          child: const Icon(Icons.camera),
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),
