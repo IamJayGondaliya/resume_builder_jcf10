@@ -33,7 +33,9 @@ class _ResumeWorkspaceState extends State<ResumeWorkspace> {
         centerTitle: true,
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).pushNamed(MyRoutes.pdfPage);
+            },
             icon: const Icon(
               Icons.picture_as_pdf,
               color: Colors.white,

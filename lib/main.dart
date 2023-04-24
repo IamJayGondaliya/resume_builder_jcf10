@@ -4,6 +4,7 @@ import 'package:resume_builder_jcf10/views/screens/carrier_objective_page.dart';
 import 'package:resume_builder_jcf10/views/screens/contact_info_page.dart';
 import 'package:resume_builder_jcf10/views/screens/education_page.dart';
 import 'package:resume_builder_jcf10/views/screens/home_page.dart';
+import 'package:resume_builder_jcf10/views/screens/pdf_page.dart';
 import 'package:resume_builder_jcf10/views/screens/personal_details_page.dart';
 import 'package:resume_builder_jcf10/views/screens/resume_workspace.dart';
 
@@ -23,11 +24,10 @@ class MyApp extends StatelessWidget {
       routes: {
         MyRoutes.home: (context) => const HomePage(),
         MyRoutes.workspace: (context) => const ResumeWorkspace(),
+        MyRoutes.pdfPage: (context) => const PdfPage(),
         MyRoutes.buildOptions[0].route: (context) => const ContactInfoPage(),
-        MyRoutes.buildOptions[1].route: (context) =>
-            const CarrierObjectivePage(),
-        MyRoutes.buildOptions[2].route: (context) =>
-            const PersonalDetailsPage(),
+        MyRoutes.buildOptions[1].route: (context) => const CarrierObjectivePage(),
+        MyRoutes.buildOptions[2].route: (context) => const PersonalDetailsPage(),
         MyRoutes.buildOptions[3].route: (context) => const EducationPage(),
       },
     );

@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:resume_builder_jcf10/modals/globals.dart';
@@ -86,10 +85,6 @@ class _ContactInfoPageState extends State<ContactInfoPage> {
                     },
                     child: Container(
                       alignment: Alignment.center,
-                      child: Text(
-                        "Photo",
-                        style: appBarTitleStyle,
-                      ),
                       decoration: BoxDecoration(
                         border: Border(
                           bottom: BorderSide(
@@ -98,6 +93,10 @@ class _ContactInfoPageState extends State<ContactInfoPage> {
                           ),
                         ),
                         color: Colors.red,
+                      ),
+                      child: Text(
+                        "Photo",
+                        style: appBarTitleStyle,
                       ),
                     ),
                   ),

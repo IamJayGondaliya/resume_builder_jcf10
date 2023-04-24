@@ -15,6 +15,7 @@ class BuildOption {
 class MyRoutes {
   static String home = '/';
   static String workspace = 'resume_workspace';
+  static String pdfPage = 'pdf_page';
 
   //Build Options Route List
   static List<BuildOption> buildOptions = [
