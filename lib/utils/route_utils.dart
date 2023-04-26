@@ -39,5 +39,10 @@ class MyRoutes {
       name: "Education Page",
       route: 'education_page',
     ),
+    BuildOption(
+      icon: iconPath + "certificate.png",
+      name: "Technical Skills",
+      route: 'technical_skills',
+    ),
   ];
 }

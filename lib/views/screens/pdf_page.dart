@@ -19,7 +19,7 @@ class _PdfPageState extends State<PdfPage> {
   pw.Document pdf = pw.Document();
 
   generatePdf() async {
-    var image = await networkImage("https://i.pinimg.com/474x/8d/2e/03/8d2e0351c530f93217c09846ea5a82a3.jpg");
+    // var image = await networkImage("https://i.pinimg.com/474x/8d/2e/03/8d2e0351c530f93217c09846ea5a82a3.jpg");
 
     pdf.addPage(
       pw.Page(
@@ -29,9 +29,10 @@ class _PdfPageState extends State<PdfPage> {
           width: double.infinity,
           alignment: pw.Alignment.center,
           decoration: pw.BoxDecoration(
-            image: pw.DecorationImage(
-              image: image,
-            ),
+            color: PdfColors.blue50,
+            // image: pw.DecorationImage(
+            //   image: image,
+            // ),
           ),
           child: pw.Column(
             mainAxisSize: pw.MainAxisSize.min,
@@ -52,24 +53,58 @@ class _PdfPageState extends State<PdfPage> {
                 height: 20,
               ),
               pw.SizedBox(
-                width: 300,
-                child: pw.Row(
-                  mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                width: 350,
+                child: pw.Column(
+                  mainAxisSize: pw.MainAxisSize.min,
                   children: [
-                    pw.Text(
-                      "Name :",
-                      style: pw.TextStyle(
-                        fontSize: 28,
-                        color: PdfColors.red,
-                      ),
+                    pw.Row(
+                      mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                      children: [
+                        pw.Text(
+                          "Name :",
+                          style: pw.TextStyle(
+                            fontSize: 28,
+                            color: PdfColors.red,
+                          ),
+                        ),
+                        pw.Text(
+                          Global.name!,
+                          style: pw.TextStyle(
+                            fontSize: 28,
+                            color: PdfColors.red,
+                          ),
+                        ),
+                      ],
                     ),
-                    pw.Text(
-                      Global.name!,
-                      style: pw.TextStyle(
-                        fontSize: 28,
-                        color: PdfColors.red,
-                      ),
+                    pw.Row(
+                      mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                      children: [
+                        pw.Text(
+                          "Contact :",
+                          style: const pw.TextStyle(
+                            fontSize: 28,
+                            color: PdfColors.blue,
+                          ),
+                        ),
+                        pw.Text(
+                          "+91 ${Global.contact!.toString()}",
+                          style: pw.TextStyle(
+                            fontSize: 28,
+                            color: PdfColors.blue,
+                          ),
+                        ),
+                      ],
                     ),
+                    ...Global.mySkills
+                        .map(
+                          (e) => pw.Text(
+                            "Skill: $e",
+                            style: pw.TextStyle(
+                              fontSize: 26,
+                            ),
+                          ),
+                        )
+                        .toList(),
                   ],
                 ),
               ),

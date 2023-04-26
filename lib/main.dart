@@ -7,6 +7,7 @@ import 'package:resume_builder_jcf10/views/screens/home_page.dart';
 import 'package:resume_builder_jcf10/views/screens/pdf_page.dart';
 import 'package:resume_builder_jcf10/views/screens/personal_details_page.dart';
 import 'package:resume_builder_jcf10/views/screens/resume_workspace.dart';
+import 'package:resume_builder_jcf10/views/screens/technical_skills_page.dart';
 
 void main() => runApp(const MyApp());
 
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
         MyRoutes.buildOptions[1].route: (context) => const CarrierObjectivePage(),
         MyRoutes.buildOptions[2].route: (context) => const PersonalDetailsPage(),
         MyRoutes.buildOptions[3].route: (context) => const EducationPage(),
+        MyRoutes.buildOptions[4].route: (context) => const TechnicalSkillsPage(),
       },
     );
   }
